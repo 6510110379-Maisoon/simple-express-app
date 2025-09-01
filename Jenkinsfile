@@ -1,27 +1,39 @@
 pipeline {
     agent any
 
+    tools {
+        nodejs "NodeJS"
+    }
+
+    environment {
+        SONAR_TOKEN = credentials('SonarQube-token')
+    }
+
     stages {
         stage('Checkout') {
             steps {
+                // Checkout branch feature/lab
                 git url: 'https://github.com/6510110379-Maisoon/simple-express-app.git', branch: 'feature/lab'
             }
         }
 
         stage('Build') {
             steps {
+                // ติดตั้ง dependencies
                 sh 'npm install'
             }
         }
 
         stage('Scan') {
             steps {
+                // ใช้งาน SonarQube environment ชื่อ sq1
                 withSonarQubeEnv('sq1') {
+                    // รัน Sonar Scanner
                     sh '''
                         npx sonar-scanner \
                           -Dsonar.projectKey=mywebapp \
                           -Dsonar.sources=. \
-                          -Dsonar.host.url=http://<sonarqube-ip>:9000 \
+                          -Dsonar.host.url=http://localhost:9001 \
                           -Dsonar.login=$SONAR_TOKEN
                     '''
                 }
