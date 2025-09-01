@@ -31,7 +31,7 @@ pipeline {
                     // รัน Sonar Scanner
                     sh '''
                         npx sonar-scanner \
-                          -Dsonar.projectKey=mywebapp \
+                          -Dsonar.projectKey=SonarQube-Jenkins-for-simple-express-app \
                           -Dsonar.sources=. \
                           -Dsonar.host.url=http://172.24.103.78:9001 \
                           -Dsonar.login=$SONAR_TOKEN
