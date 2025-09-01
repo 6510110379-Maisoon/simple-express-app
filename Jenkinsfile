@@ -2,18 +2,28 @@ pipeline {
     agent any
 
     stages {
+        stage('Checkout') {
+            steps {
+                git url: 'https://github.com/6510110379-Maisoon/simple-express-app.git', branch: 'feature/lab'
+            }
+        }
+
         stage('Build') {
             steps {
-                git 'https://github.com/aeff60/simple-express-app.git'
-                bat "npm install"
+                sh 'npm install'
             }
         }
 
         stage('Scan') {
             steps {
-                withSonarQubeEnv(installationName: 'sq1') {
-                    bat "npm install sonar-scanner"
-                    bat 'npx sonar-scanner -X -X -Dsonar.projectKey=mywebapp'
+                withSonarQubeEnv('sq1') {
+                    sh '''
+                        npx sonar-scanner \
+                          -Dsonar.projectKey=mywebapp \
+                          -Dsonar.sources=. \
+                          -Dsonar.host.url=http://<sonarqube-ip>:9000 \
+                          -Dsonar.login=$SONAR_TOKEN
+                    '''
                 }
             }
         }
