@@ -27,7 +27,7 @@ pipeline {
         stage('Scan') {
             steps {
                 // ใช้งาน SonarQube environment ชื่อ sq1
-                withSonarQubeEnv('sq1') {
+                withSonarQubeEnv('SonarQube') {
                     // รัน Sonar Scanner
                     sh '''
                         npx sonar-scanner \
