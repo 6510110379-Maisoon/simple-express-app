@@ -33,7 +33,7 @@ pipeline {
                         npx sonar-scanner \
                           -Dsonar.projectKey=mywebapp \
                           -Dsonar.sources=. \
-                          -Dsonar.host.url=http://localhost:9001 \
+                          -Dsonar.host.url=http://172.17.0.3:9001 \
                           -Dsonar.login=$SONAR_TOKEN
                     '''
                 }
