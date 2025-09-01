@@ -1,11 +1,14 @@
 pipeline {
     agent any
 
- tools {
-        nodejs 'NodeJS'  // <-- Use the exact name from Global Tool Configuration
-        jdk 'Java17'
+    tools {
+        nodejs 'NodeJS'  // ใช้ชื่อ NodeJS จาก Global Tool Configuration
+        jdk 'Java17'   <-- ถ้าใช้ Java จาก container ให้เอาออก
     }
 
+    environment {
+        SONAR_TOKEN = credentials('SonarQube-token')
+    }
 
     stages {
         stage('Checkout') {
@@ -23,7 +26,14 @@ pipeline {
         stage('SonarQube Scan') {
             steps {
                 withSonarQubeEnv('SonarQube') {
-                    sh 'npx sonar-scanner -Dsonar.projectKey=SonarQube-Jenkins-for-simple-express-app'
+                    sh '''
+                        npx sonar-scanner \
+                          -Dsonar.projectKey=SonarQube-Jenkins-for-simple-express-app \
+                          -Dsonar.sources=. \
+                          -Dsonar.host.url=http://172.24.103.78:9001 \
+                          -Dsonar.login=$SONAR_TOKEN \
+                          -Dsonar.branch.name=feature/lab
+                    '''
                 }
             }
         }
