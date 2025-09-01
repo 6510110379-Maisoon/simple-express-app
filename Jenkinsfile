@@ -3,6 +3,7 @@ pipeline {
 
  tools {
         nodejs 'NodeJS'  // <-- Use the exact name from Global Tool Configuration
+        jdk 'Java17'
     }
 
 
