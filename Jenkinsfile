@@ -3,7 +3,7 @@ pipeline {
 
     tools {
         nodejs 'NodeJS'  // ใช้ชื่อ NodeJS จาก Global Tool Configuration
-        jdk 'Java17'   <-- ถ้าใช้ Java จาก container ให้เอาออก
+        jdk 'Java17'   
     }
 
     environment {
