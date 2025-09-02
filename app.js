@@ -1,4 +1,6 @@
-function sayHello() {
-    console.log("Hello CI/CD!");
+// app.js
+function add(a, b) {
+    return a + b;
 }
-sayHello();
+
+console.log("2 + 3 =", add(2, 3));

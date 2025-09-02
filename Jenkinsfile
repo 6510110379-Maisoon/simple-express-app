@@ -19,6 +19,12 @@ pipeline {
             }
         }
 
+        stage('Test') {
+            steps {
+                sh 'node test.js'
+            }
+        }
+
         stage('SonarQube Scan') {
             steps {
                 withSonarQubeEnv('SonarQube') {
